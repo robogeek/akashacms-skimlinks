@@ -25,7 +25,7 @@ module.exports.query = function(config, partial, query, callback) {
         if (err) {
             throw err;
         } else {
-            util.log("# found: " + data.skimlinksProductAPI.numFound);
+            // util.log("# found: " + data.skimlinksProductAPI.numFound);
             var render2 = "";
             async.forEachSeries(data.skimlinksProductAPI.products,
                 function(row, cb) {
