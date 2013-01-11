@@ -37,7 +37,7 @@ module.exports.query = function(config, partial, query, callback) {
                     }, function(err, data) {
                         if (err) throw err;
                         render2 += data; // .content; // Wrap rndrd in any way?
-                        util.log('data ' + util.inspect(data));
+                        // util.log('data ' + util.inspect(data));
                         cb();
                     });
                 },
