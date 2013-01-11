@@ -1,0 +1,9 @@
+<table>
+    <tr>
+        <td><%= row.title %></td><td><%= row.merchant %></td><td><%= JSON.stringify(row.categorisation) %></td>
+    </tr>
+    <tr><td colspan=3><img src="<%= row.imageUrl %>" align="right"><%= row.description %></td></tr>
+    <tr><td colspan=3><%= row.price %> <%= row.currency %> <%= row.country %></td></tr>
+    <tr><td colspan=3><a href="<%= row.url%>"><%= row.url %></a></td></tr>
+    <tr><td colspan=3>id: <%= row.id %> groupid: <%= row.groupId %> productId: <%= row.productId %> merchantid: <%= row.merchantId %></td></tr>
+</table>
