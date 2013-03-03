@@ -18,7 +18,40 @@ var currencySymbol = function(currency) {
         return "";
     }
 }
-        
+
+module.exports.queryAll = function(config, partial, query, callback) {
+    var rows = [];
+    skimlinks.query(query, function(err, data) {
+        if (err) {
+            throw err;
+        } else {
+            async.forEachSeries(data.skimlinksProductAPI.products,
+                function(row, cb) {
+                    row.currencySymbol = currencySymbol(row.currency);
+                    rows.push(row);
+                    cb();
+                },
+                function(err) {
+                    if (err) throw err;
+                    else {
+                        config.partial(
+                        {
+                            template: partial,
+                            data: {
+                                rows: rows,
+                                query: query
+                            }
+                        }, function(err, data) {
+                            if (err) throw err;
+                            else callback(null, data);
+                        });
+                    }
+                }
+            );
+        }
+    });
+}
+   
 module.exports.query = function(config, partial, query, callback) {
 
     skimlinks.query(query, function(err, data) {
@@ -32,8 +65,13 @@ module.exports.query = function(config, partial, query, callback) {
                     row.currencySymbol = currencySymbol(row.currency);
                     // util.log(util.inspect(row));
                     // util.log(util.inspect(config));
-                    var rndrd = config.partial(partial, {
-                        row: row
+                    var rndrd = config.partial(
+                    {
+                        template: partial,
+                        data: {
+                            row: row,
+                            query: query
+                        }
                     }, function(err, data) {
                         if (err) throw err;
                         render2 += data; // .content; // Wrap rndrd in any way?
