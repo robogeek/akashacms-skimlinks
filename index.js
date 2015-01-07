@@ -25,7 +25,7 @@ module.exports.queryAll = function(config, partial, query, callback) {
         if (err) {
             throw err;
         } else {
-            async.forEachSeries(data.skimlinksProductAPI.products,
+            async.eachSeries(data.skimlinksProductAPI.products,
                 function(row, cb) {
                     row.currencySymbol = currencySymbol(row.currency);
                     rows.push(row);
@@ -60,7 +60,7 @@ module.exports.query = function(config, partial, query, callback) {
         } else {
             // util.log("# found: " + data.skimlinksProductAPI.numFound);
             var render2 = "";
-            async.forEachSeries(data.skimlinksProductAPI.products,
+            async.eachSeries(data.skimlinksProductAPI.products,
                 function(row, cb) {
                     row.currencySymbol = currencySymbol(row.currency);
                     // util.log(util.inspect(row));
